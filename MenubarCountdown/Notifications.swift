@@ -59,9 +59,9 @@ func showTimerExpiredNotification(withSound: Bool) -> String {
 
         if settings.alertSetting == .enabled {
             let content = UNMutableNotificationContent()
-            content.title = NSLocalizedString("Menubar Countdown Expired",
+            content.title = NSLocalizedString("Menubar Timer Expired",
                                               comment: "Notification title")
-            content.body = NSLocalizedString("The countdown timer has reached 00:00:00",
+            content.body = NSLocalizedString("The timer has expired",
                                              comment: "Notification body")
 
             if withSound && settings.soundSetting == .enabled {

@@ -243,7 +243,7 @@ extension AppDelegate {
         get {
             var result = defaults.string(forKey: AppUserDefaults.announcementTextKey)
             if (result == nil) || result!.isEmpty {
-                result = NSLocalizedString("The Menubar Countdown timer has reached zero.",
+                result = NSLocalizedString("The Menubar Timer has expired.",
                     comment: "Default announcement text")
             }
             return result!

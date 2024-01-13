@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
@@ -14,13 +14,13 @@
         <customObject id="420" customClass="NSFontManager"/>
         <menu title="Menubar Countdown" id="450">
             <items>
-                <menuItem title="Start…" toolTip="Start a countdown" id="451">
+                <menuItem title="Start…" toolTip="Start a timer" id="451">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showStartTimerDialog:" target="458" id="490"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Stop" toolTip="Stop the countdown" id="452">
+                <menuItem title="Stop" toolTip="Stop the timer" id="452">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="stopTimer:" target="458" id="460"/>
@@ -35,7 +35,7 @@
                         <binding destination="458" name="enabled" keyPath="canPause" id="494"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Resume" enabled="NO" toolTip="Resume a stopped countdown" id="465">
+                <menuItem title="Resume" enabled="NO" toolTip="Resume a paused timer" id="465">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="resumeTimer:" target="458" id="477"/>
@@ -43,27 +43,28 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="464"/>
-                <menuItem title="About Menubar Countdown" toolTip="Display version, copyright, and licensing information" id="471">
+                <menuItem title="About Menubar Timer" toolTip="Display version, copyright, and licensing information" id="471">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showAboutPanel:" target="458" id="478"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="470"/>
-                <menuItem title="Quit Menubar Countdown" toolTip="Terminate the Menubar Countdown application" id="453">
+                <menuItem title="Quit Menubar Timer" toolTip="Terminate the Menubar Timer application" id="453">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="terminate:" target="-3" id="455"/>
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="32" y="112"/>
         </menu>
-        <customObject id="458" customClass="AppDelegate" customModule="MenubarCountdown" customModuleProvider="target">
+        <customObject id="458" customClass="AppDelegate" customModule="Menubar_Countdown" customModuleProvider="target">
             <connections>
                 <outlet property="menu" destination="450" id="466"/>
                 <outlet property="stopwatch" destination="468" id="469"/>
             </connections>
         </customObject>
-        <customObject id="468" customClass="Stopwatch" customModule="MenubarCountdown" customModuleProvider="target"/>
+        <customObject id="468" customClass="Stopwatch" customModule="Menubar_Countdown" customModuleProvider="target"/>
     </objects>
 </document>

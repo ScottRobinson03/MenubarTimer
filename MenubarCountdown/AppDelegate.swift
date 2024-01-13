@@ -16,7 +16,7 @@ import UserNotifications
  - reset: timer is not running
  - running: timer has been started and is counting down
  - paused: timer has been started but is in a paused state
- - expired: timer has reached 00:00:00 and is waiting to be turned off
+ - expired: timer has reached the configured end time and is waiting to be turned off
 
  The persistent settings of the app are managed by the UserDefaults system. 
  */
@@ -183,7 +183,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
         // TODO: Use localized time-formatting function
         var timeString: String
         if includeSecondsInTitle {
-            timeString = NSString(format: "%02d:%02d:%02d", hours, minutes, seconds) as String
+            if hours != 0 {
+                timeString = NSString(format: "%02d:%02d:%02d", hours, minutes, seconds) as String
+            } else {
+                timeString = NSString(format: "%02d:%02d", minutes, seconds) as String
+            }
         }
         else {
             timeString = NSString(format: "%02d:%02d", hours, minutes) as String
@@ -216,7 +220,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     // MARK: Timer expiration
 
     /**
-     Called when the timer reaches 00:00:00.
+     Called when the timer expires.
 
      Fires all of the configured notifications.
      */
@@ -297,7 +301,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
      Display the StartTimerDialog.xib dialog.
 
      Called at startup, when the user chooses the Start... menu item,
-     when the user clicks the Restart Countdown... button on the alert,
+     when the user clicks the Restart Timer... button on the alert,
      or when the `show start dialog` scripting command is invoked.
      */
     @IBAction func showStartTimerDialog(_ sender: AnyObject) {
@@ -453,10 +457,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     /**
      Dismiss the TimerExpiredAlert and show the StartTimerDialog.
 
-     Called when the user clicks the Restart Countdown button in the TimerExpiredAlert.
+     Called when the user clicks the Restart Timer button in the TimerExpiredAlert.
      */
-    @IBAction func restartCountdownWasClicked(_ sender: AnyObject) {
-        Log.debug("restart countdown was clicked")
+    @IBAction func restartTimerWasClicked(_ sender: AnyObject) {
+        Log.debug("restart timer was clicked")
         dismissTimerExpiredAlert(sender)
         showStartTimerDialog(sender)
     }

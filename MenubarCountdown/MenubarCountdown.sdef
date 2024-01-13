@@ -114,7 +114,7 @@
                 name="blink"
                 code="Mbli"
                 type="boolean"
-                description="If true, blink 00:00:00 in menu bar when timer expires.">
+                description="If true, blink timer end time in menu bar when timer expires.">
                 <cocoa key="blinkOnExpiration"/>
             </property>
             <property

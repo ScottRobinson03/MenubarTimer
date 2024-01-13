@@ -7,7 +7,7 @@
 import Cocoa
 
 /**
- Alert displayed when the timer reaches 00:00:00.
+ Alert displayed when the timer expires.
 
  Also see TimerExpiredAlert.xib.
  */

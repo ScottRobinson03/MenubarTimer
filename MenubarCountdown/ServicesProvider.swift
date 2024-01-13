@@ -13,10 +13,10 @@ import Cocoa
 
  The provided services are
 
- - Start Countdown: show the start dialog
- - Stop Countdown: reset the timer
- - Pause Countdown: pause the timer
- - Resume Countdown: resume paused timer
+ - Start Timer: show the start dialog
+ - Stop Timer: reset the timer
+ - Pause Timer: pause the timer
+ - Resume Timer: resume paused timer
 
  See also
 
@@ -33,34 +33,34 @@ import Cocoa
     }
 
     /**
-     Handle a Start Countdown service request.
+     Handle a Start TImer service request.
      */
-    @objc func startCountdown(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
-        Log.debug("Start Countdown service was requested")
+    @objc func startTimer(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
+        Log.debug("Start Timer service was requested")
         appDelegate.showStartTimerDialog(self)
     }
 
     /**
-     Handle a Stop Countdown service request.
+     Handle a Stop Timer service request.
      */
-    @objc func stopCountdown(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
-        Log.debug("Stop Countdown service was requested")
+    @objc func stopTimer(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
+        Log.debug("Stop Timer service was requested")
         appDelegate.stopTimer(self)
     }
 
     /**
-     Handle a Pause Countdown service request.
+     Handle a Pause Timer service request.
      */
-    @objc func pauseCountdown(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
-        Log.debug("Pause Countdown service was requested")
+    @objc func pauseTimer(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
+        Log.debug("Pause Timer service was requested")
         appDelegate.pauseTimer(self)
     }
 
     /**
-     Handle a Resume Countdown service request.
+     Handle a Resume Timer service request.
      */
-    @objc func resumeCountdown(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
-        Log.debug("Resume Countdown service was requested")
+    @objc func resumeTimer(_ pboard: NSPasteboard, userData: String, error: NSErrorPointer) {
+        Log.debug("Resume Timer service was requested")
         appDelegate.resumeTimer(self)
     }
 }

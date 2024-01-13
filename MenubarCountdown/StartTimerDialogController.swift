@@ -7,7 +7,7 @@
 import Cocoa
 
 /**
- Window controller for the "Menubar Countdown Settings" dialog that is used to start the countdown.
+ Window controller for the "Menubar Timer Settings" dialog that is used to start the timer.
 
  Also see StartTimerDialog.xib.
  */
