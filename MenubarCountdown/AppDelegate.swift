@@ -110,7 +110,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
      Determine time to the next top of second, and set a timer to call `nextSecondTimerDidFire` at that time.
      */
     func waitForNextSecond() {
-        let elapsed = stopwatch.elapsedTimeInterval()
+        let elapsed = stopwatch.elapsedTimeInterval() + elapsedTime
         let intervalToNextSecond = ceil(elapsed) - elapsed
 
         let t = Timer.scheduledTimer(timeInterval: intervalToNextSecond,
@@ -128,13 +128,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
      */
     @objc func nextSecondTimerDidFire(_ timer: Timer) {
         if isTimerRunning {
-            secondsRemaining = Int(round(TimeInterval(timerSettingSeconds) - stopwatch.elapsedTimeInterval()))
+            secondsRemaining = Int(round(TimeInterval(timerSettingSeconds) - (stopwatch.elapsedTimeInterval() + elapsedTime)))
 
             if secondsRemaining <= 0 {
                 timerDidExpire()
             }
             else {
-                updateStatusItemTitle(timePassed: Int(stopwatch.elapsedTimeInterval().rounded(.towardZero)))
+                updateStatusItemTitle(timePassed: Int((stopwatch.elapsedTimeInterval() + elapsedTime).rounded(.towardZero)))
                 waitForNextSecond()
             }
         }
@@ -402,7 +402,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     @IBAction func pauseTimer(_ sender: AnyObject) {
         Log.debug("pause timer")
         if canPause {
-            elapsedTime = stopwatch.elapsedTimeInterval()
+            elapsedTime += stopwatch.elapsedTimeInterval()
+            Log.debug("Timer paused at \(elapsedTime)s")
+            updateStatusItemTitle(timePassed: Int(elapsedTime.rounded(.towardZero)))
+
             isTimerRunning = false
             canPause = false
             canResume = true
@@ -423,8 +426,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             isTimerRunning = true
             canPause = true
             canResume = false
-
-            timerSettingSeconds = secondsRemaining
 
             stopwatch.reset()
 
