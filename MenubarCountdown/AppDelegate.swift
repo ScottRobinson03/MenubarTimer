@@ -14,7 +14,7 @@ import UserNotifications
  From the user's point of view, the application switches between these states:
 
  - reset: timer is not running
- - running: timer has been started and is counting down
+ - running: timer has been started and is counting up
  - paused: timer has been started but is in a paused state
  - expired: timer has reached the configured end time and is waiting to be turned off
 
