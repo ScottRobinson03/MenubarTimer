@@ -54,6 +54,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
      */
     @objc var canResume = false
 
+    var elapsedTime: TimeInterval = 0
+
     var stopwatch: Stopwatch!
 
     var statusItem: NSStatusItem!
@@ -132,7 +134,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
                 timerDidExpire()
             }
             else {
-                updateStatusItemTitle(timeRemaining: secondsRemaining)
+                updateStatusItemTitle(timePassed: Int(stopwatch.elapsedTimeInterval().rounded(.towardZero)))
                 waitForNextSecond()
             }
         }
@@ -163,20 +165,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     /**
      Sets the text of the menu bar status item.
      */
-    func updateStatusItemTitle(timeRemaining: Int) {
-        var timeRemaining = timeRemaining
+    func updateStatusItemTitle(timePassed: Int) {
+        var timePassed = timePassed
         
         let includeSecondsInTitle = displaySeconds
         if (!includeSecondsInTitle) {
             // Round timeRemaining up to the next minute
-            let minutes = Double(timeRemaining) / 60.0
-            timeRemaining = Int(ceil(minutes)) * 60
+            let minutes = Double(timePassed) / 60.0
+            timePassed = Int(ceil(minutes)) * 60
         }
 
-        let hours = timeRemaining / 3600
-        timeRemaining %= 3600
-        let minutes = timeRemaining / 60
-        let seconds = timeRemaining % 60
+        let hours = timePassed / 3600
+        timePassed %= 3600
+        let minutes = timePassed / 60
+        let seconds = timePassed % 60
 
         // TODO: Use localized time-formatting function
         var timeString: String
@@ -222,7 +224,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
         canPause = false
         canResume = false
 
-        updateStatusItemTitle(timeRemaining: 0)
+        updateStatusItemTitle(timePassed: timerSettingSeconds)
 
         if blinkOnExpiration {
             startBlinking()
@@ -368,7 +370,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
         canResume = false
         stopwatch.reset()
 
-        updateStatusItemTitle(timeRemaining: timerSettingSeconds)
+        updateStatusItemTitle(timePassed: 0)
 
         waitForNextSecond()
     }
@@ -400,6 +402,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     @IBAction func pauseTimer(_ sender: AnyObject) {
         Log.debug("pause timer")
         if canPause {
+            elapsedTime = stopwatch.elapsedTimeInterval()
             isTimerRunning = false
             canPause = false
             canResume = true
@@ -425,7 +428,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
 
             stopwatch.reset()
 
-            updateStatusItemTitle(timeRemaining: timerSettingSeconds)
+            updateStatusItemTitle(timePassed: Int(elapsedTime.rounded(.towardZero)))
 
             waitForNextSecond()
         }
