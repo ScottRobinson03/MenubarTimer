@@ -366,6 +366,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             startTimerDialogController.dismissDialog(sender)
         }
 
+        elapsedTime = 0
         timerSettingSeconds = (startHours * 3600) + (startMinutes * 60) + startSeconds
         secondsRemaining = timerSettingSeconds
 
